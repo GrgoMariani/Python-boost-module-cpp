@@ -1,5 +1,6 @@
 #include <boost/python.hpp>
 
+namespace py = boost::python;
 
 class Add{
 private: 
@@ -26,7 +27,30 @@ public:
 };
 
 
-namespace py = boost::python;
+class TakeListAsArgument{
+private:
+    py::list _li;
+    int _size;
+public:
+    TakeListAsArgument(py::list li){
+        this->_li = li;
+        this->_size = len(li);
+    }
+    int size(){
+        return this->_size;
+    }
+    int getAt(int i){
+        return py::extract<int>(this->_li[i]);
+    }
+    int sumAll(){
+        int result=0;
+        for(int i=0; i<len(this->_li); i++){
+            result += py::extract<int>(this->_li[i]);
+        }
+        return result;
+    }
+};
+
 
 
 BOOST_PYTHON_MODULE(custom_module)
@@ -35,5 +59,11 @@ BOOST_PYTHON_MODULE(custom_module)
       .def("result", &Add::result)
       .add_property("x", &Add::get_x, &Add::set_x)
       .add_property("y", &Add::get_y, &Add::set_y);
+    
+    py::class_< TakeListAsArgument >("TLAA", py::init<py::list>())
+      .def("size", &TakeListAsArgument::size)
+      .def("getAt", &TakeListAsArgument::getAt)
+      .def("sumAll", &TakeListAsArgument::sumAll);
+    
 }
 
