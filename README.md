@@ -17,11 +17,14 @@ You want to write a module in C++ for use in Python and as easy as possible ?
 
 ### Installation
 >```make``` builds .so file in build directory
+>
 >```sudo make install``` copies .so file to python libs directory
+>
 >```sudo make uninstall``` deletes .so file from python libs directory
 
 ### Python usage
->Once installed open python
+Once installed open python
+
 >```
 >from custom_module import ADD
 >import custom_module
@@ -36,4 +39,5 @@ You want to write a module in C++ for use in Python and as easy as possible ?
 
 ### LINKS
 [This one]( https://www.boost.org/doc/libs/1_63_0/libs/python/doc/html/tutorial/tutorial/exposing.html )
+
 [That one]( https://docs.python.org/3/tutorial/modules.html )
